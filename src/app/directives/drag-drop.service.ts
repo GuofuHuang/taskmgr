@@ -11,7 +11,7 @@ export interface DragData {
 export class DragDropService {
   private _dragData = new BehaviorSubject<DragData | null>(null);
 
-  setDragData(data: DragData) {
+  setDragData(data: DragData): void {
     this._dragData.next(data);
   }
 
@@ -19,7 +19,7 @@ export class DragDropService {
     return this._dragData.asObservable();
   }
 
-  clearDragData() {
+  clearDragData(): void {
     this._dragData.next(null);
   }
 }
