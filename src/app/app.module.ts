@@ -1,22 +1,45 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+// import { BrowserModule } from '@angular/platform-browser';
+// import { NgModule } from '@angular/core';
+//
+// import { AppRoutingModule } from './app-routing.module';
+// import { AppComponent } from './app.component';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import {SharedModule} from './shared';
+//
+// @NgModule({
+//   declarations: [
+//     AppComponent
+//   ],
+//   imports: [
+//     BrowserModule,
+//     AppRoutingModule,
+//     SharedModule,
+//     BrowserAnimationsModule
+//   ],
+//   providers: [],
+//   bootstrap: [AppComponent]
+// })
+// export class AppModule { }
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {SharedModule} from './shared';
+
+
+import { BrowserModule } from '@angular/platform-browser';
+import { TransferHttpCacheModule } from '@nguniversal/common';
+import { NgModule } from '@angular/core';
+import { CoreModule } from './core';
+import { SharedModule } from './shared';
+import { LoginModule } from './login';
+import { AppComponent } from './core/containers/app';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
+    BrowserModule.withServerTransition({ appId: 'taskmgr' }),
+    TransferHttpCacheModule,
     SharedModule,
-    BrowserAnimationsModule
+    LoginModule,
+    CoreModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
+

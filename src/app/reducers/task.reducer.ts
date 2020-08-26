@@ -24,10 +24,10 @@ export const initialState: State = {
 };
 
 const addTask = (state: State, action: actions.AddTaskSuccessAction) => {
-  if (state.entities[<string>(<Task>action.payload).id]) {
+  if (state.entities[(action.payload as Task).id as string]) {
     return state;
   }
-  return addOne(state, <Task>action.payload);
+  return addOne(state, action.payload as Task);
 };
 
 const delTask = (state: State, action: actions.DeleteTaskSuccessAction) => {
@@ -35,14 +35,14 @@ const delTask = (state: State, action: actions.DeleteTaskSuccessAction) => {
 };
 
 const loadTasks = (state: State, action: actions.LoadTasksInListsSuccessAction) => {
-  if ((<Task[]>action.payload).length === 0) {
+  if ((action.payload as Task[]).length === 0) {
     return state;
   }
-  return loadCollection(state, <Task[]>action.payload);
+  return loadCollection(state, action.payload as Task[]);
 };
 
 const moveAllTasks = (state: State, action: actions.MoveAllSuccessAction) => {
-  const tasks = <Task[]>action.payload;
+  const tasks = action.payload as Task[];
   // if task is null then return the orginal state
   if (tasks === null) {
     return state;
@@ -52,7 +52,7 @@ const moveAllTasks = (state: State, action: actions.MoveAllSuccessAction) => {
 };
 
 const delTasksByPrj = (state: State, action: prjActions.DeleteProjectSuccessAction) => {
-  const project = <Project>action.payload;
+  const project = action.payload as Project;
   const listIds = project.taskLists;
   const remainingIds = state.ids.filter(id => _.indexOf(listIds, state.entities[id].taskListId) === -1);
   const remainingEntities = buildObjFromArr(remainingIds, state.entities);
@@ -66,19 +66,19 @@ const updateTask = (state: State, action: combinedAction) => {
 export function reducer(state = initialState, action: actions.Actions | prjActions.Actions): State {
   switch (action.type) {
     case actions.ADD_SUCCESS:
-      return addTask(state, <actions.AddTaskSuccessAction>action);
+      return addTask(state, action as actions.AddTaskSuccessAction);
     case actions.DELETE_SUCCESS:
-      return delTask(state, <actions.DeleteTaskSuccessAction>action);
+      return delTask(state, action as actions.DeleteTaskSuccessAction);
     case prjActions.DELETE_SUCCESS:
-      return delTasksByPrj(state, <prjActions.DeleteProjectSuccessAction>action);
+      return delTasksByPrj(state, action as prjActions.DeleteProjectSuccessAction);
     case actions.MOVE_SUCCESS:
     case actions.COMPLETE_SUCCESS:
     case actions.UPDATE_SUCCESS:
-      return updateTask(state, <combinedAction>action);
+      return updateTask(state, action as combinedAction);
     case actions.LOAD_IN_LISTS_SUCCESS:
-      return loadTasks(state, <actions.LoadTasksInListsSuccessAction>action);
+      return loadTasks(state, action as actions.LoadTasksInListsSuccessAction);
     case actions.MOVE_ALL_SUCCESS:
-      return moveAllTasks(state, <actions.MoveAllSuccessAction>action);
+      return moveAllTasks(state, action as actions.MoveAllSuccessAction);
     default:
       return state;
   }
