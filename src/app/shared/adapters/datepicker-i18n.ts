@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 
 /** Datepicker data that requires internationalization. */
 @Injectable()
+// @ts-ignore
 export class DatepickerI18n {
   /**
    * Stream that emits whenever the labels here are changed. Use this to notify
