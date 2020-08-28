@@ -15,6 +15,10 @@
     }
   ],
   "compilerOptions": {
-    "experimentalDecorators": true
-  }
+    "baseUrl": "./",
+    "experimentalDecorators": true,
+    "typeRoots": ["node_modules/@types"]
+  },
+  "include": ["src/**/*.ts"]
+
 }

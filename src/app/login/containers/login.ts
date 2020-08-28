@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
     this.quote$ = this.store$.pipe(select(fromRoot.getQuoteState));
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.form = this.fb.group({
       email: ['wpcfan@163.com', Validators.compose([Validators.required, Validators.email])],
       password: ['wp123456', Validators.required]
@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
     this.store$.dispatch({type: actions.QUOTE});
   }
 
-  onSubmit({value, valid}: FormGroup, e: Event) {
+  onSubmit({value, valid}: FormGroup, e: Event): void {
     e.preventDefault();
     if (!valid) {
       return;

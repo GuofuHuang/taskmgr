@@ -8,7 +8,7 @@ import { ChipsListComponent } from './components/chips-list';
 import { IdentityInputComponent } from './components/identity-input';
 import { AreaListComponent } from './components/area-list';
 import { AgeInputComponent } from './components/age-input';
-import { DirectivesModule } from '../directives';
+import { DirectivesModule } from './directives';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';

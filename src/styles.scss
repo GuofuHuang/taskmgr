@@ -37,3 +37,7 @@ mat-sidenav-container {
   // @angular/material 中的很多控件使用了 flex 布局
   flex: 1 1 auto;
 }
+
+.hover:hover {
+  cursor: pointer;
+}
