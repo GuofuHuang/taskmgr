@@ -23,30 +23,32 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-indentity-input',
   template: `
-    <div>
-      <mat-form-field>
-        <mat-select
-          placeholder="证件类型"
-          (change)="onIdTypeChange($event.value)"
-          [(ngModel)]="identity.identityType"
-        >
-          <mat-option *ngFor="let type of identityTypes" [value]="type.value">
-            {{ type.label }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="id-input">
-      <mat-form-field class="full-width">
-        <input
-          matInput
-          type="text"
-          placeholder="证件号码"
-          (change)="onIdNoChange($event.target.value)"
-          [(ngModel)]="identity.identityNo"
-        />
-        <mat-error>证件号码输入有误</mat-error>
-      </mat-form-field>
+    <div fxLayout="row" fxLayoutGap="10px">
+      <div>
+        <mat-form-field>
+          <mat-select
+            placeholder="证件类型"
+            (change)="onIdTypeChange($event.value)"
+            [(ngModel)]="identity.identityType"
+          >
+            <mat-option *ngFor="let type of identityTypes" [value]="type.value">
+              {{ type.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="id-input">
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            type="text"
+            placeholder="证件号码"
+            (change)="onIdNoChange($event.target.value)"
+            [(ngModel)]="identity.identityNo"
+          />
+          <mat-error>证件号码输入有误</mat-error>
+        </mat-form-field>
+      </div>
     </div>
   `,
   styles: [
@@ -55,10 +57,10 @@ import { map } from 'rxjs/operators';
         flex: 1;
       }
       :host {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        align-items: baseline;
+        /*display: flex;*/
+        /*flex-direction: row;*/
+        /*flex-wrap: nowrap;*/
+        /*align-items: baseline;*/
       }
     `
   ],
@@ -94,7 +96,7 @@ export class IdentityInputComponent
 
   private propagateChange = (_: any) => {};
 
-  ngOnInit() {
+  ngOnInit(): void {
     const idType$ = this.idType;
     const idNo$ = this.idNo;
     const val$ = combineLatest(idType$, idNo$).pipe(
@@ -109,14 +111,14 @@ export class IdentityInputComponent
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this._sub) {
       this._sub.unsubscribe();
     }
   }
 
   // 设置初始值
-  public writeValue(obj: Identity) {
+  public writeValue(obj: Identity): void {
     if (obj) {
       this.identity = obj;
     }
@@ -124,12 +126,12 @@ export class IdentityInputComponent
 
   // 当表单控件值改变时，函数 fn 会被调用
   // 这也是我们把变化 emit 回表单的机制
-  public registerOnChange(fn: any) {
+  public registerOnChange(fn: any): void {
     this.propagateChange = fn;
   }
 
   // 这里没有使用，用于注册 touched 状态
-  public registerOnTouched() {}
+  public registerOnTouched(): void {}
 
   // 验证表单，验证结果正确返回 null 否则返回一个验证结果对象
   validate(c: FormControl): { [key: string]: any } | null {
@@ -194,11 +196,11 @@ export class IdentityInputComponent
     return result ? null : { idNotValid: true };
   }
 
-  onIdTypeChange(idType: IdentityType) {
+  onIdTypeChange(idType: IdentityType): void {
     this._idType.next(idType);
   }
 
-  onIdNoChange(idNo: string) {
+  onIdNoChange(idNo: string): void {
     this._idNo.next(idNo);
   }
 

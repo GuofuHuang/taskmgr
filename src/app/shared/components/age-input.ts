@@ -13,13 +13,10 @@ import {
   FormGroup,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
-  Validators,
-  AbstractControl,
 } from '@angular/forms';
 import * as moment from 'moment';
-import { Observable } from 'rxjs';
 import { Subscription } from 'rxjs';
-import { convertToDate, isValidDate } from '../../utils/date.util';
+import { isValidDate } from '../../utils/date.util';
 import {
   map,
   distinctUntilChanged,
@@ -43,7 +40,7 @@ export interface Age {
 @Component({
   selector: 'app-age-input',
   template: `
-    <div [formGroup]="form" class="age-input">
+    <div [formGroup]="form" class="age-input" fxLayoutGap="10px">
       <div>
         <mat-form-field>
           <input
@@ -62,20 +59,17 @@ export interface Age {
         <mat-datepicker startView="year" #birthPicker></mat-datepicker>
       </div>
       <ng-container formGroupName="age">
-        <div class="age-num">
-          <mat-form-field>
-            <input
-              matInput
-              type="number"
-              placeholder="年龄"
-              formControlName="ageNum"
-            />
-          </mat-form-field>
-        </div>
-        <div>
+        <mat-form-field class="age-num">
+          <input
+            matInput
+            type="number"
+            placeholder="年龄"
+            formControlName="ageNum"
+          />
+        </mat-form-field>
+        <ng-container>
           <mat-button-toggle-group
             formControlName="ageUnit"
-            [(ngModel)]="selectedUnit"
           >
             <mat-button-toggle
               *ngFor="let unit of ageUnits"
@@ -84,7 +78,7 @@ export interface Age {
               {{ unit?.label }}
             </mat-button-toggle>
           </mat-button-toggle-group>
-        </div>
+        </ng-container>
         <mat-error
           class="mat-body-2"
           *ngIf="form.get('age')?.hasError('ageInvalid')"
@@ -148,7 +142,7 @@ export class AgeInputComponent
 
   constructor(private fb: FormBuilder) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     const now = moment();
     const initDate = now.subtract(30, 'years');
     console.log('initDate', initDate);
@@ -197,6 +191,7 @@ export class AgeInputComponent
       debounceTime(this.debounceTime),
       distinctUntilChanged()
     );
+
     const age$ = combineLatest(
       ageNum$,
       ageUnit$,
@@ -210,6 +205,7 @@ export class AgeInputComponent
       (date: { date: string; from: string }) => {
         const aged = this.toAge(date.date);
         if (date.from === 'birthday') {
+          console.log('need to change', date, aged);
           if (aged.age === ageNum.value && aged.unit === ageUnit.value) {
             return;
           }
@@ -227,6 +223,7 @@ export class AgeInputComponent
             aged.age !== ageToCompare.age ||
             aged.unit !== ageToCompare.unit
           ) {
+            console.log('changed date', date);
             birthday.patchValue(moment(date.date), { emitEvent: false });
             this.propagateChange(date.date);
           }
@@ -235,14 +232,15 @@ export class AgeInputComponent
     );
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this.subBirth) {
       this.subBirth.unsubscribe();
     }
   }
 
   // 提供值的写入方法
-  public writeValue(obj: Date) {
+  public writeValue(obj: Date): void {
+    console.log('everyptime', obj);
     if (obj) {
       const date = moment(obj);
       const birthday = this.form.get('birthday');
@@ -255,12 +253,12 @@ export class AgeInputComponent
 
   // 当表单控件值改变时，函数 fn 会被调用
   // 这也是我们把变化 emit 回表单的机制
-  public registerOnChange(fn: any) {
+  public registerOnChange(fn: any): void {
     this.propagateChange = fn;
   }
 
   // 这里没有使用，用于注册 touched 状态
-  public registerOnTouched() {}
+  public registerOnTouched(): void {}
 
   // 验证表单，验证结果正确返回 null 否则返回一个验证结果对象
   validate(c: FormControl): { [key: string]: any } | null {
@@ -287,7 +285,7 @@ export class AgeInputComponent
         };
   }
 
-  validateAge(ageNumKey: string, ageUnitKey: string) {
+  validateAge(ageNumKey: string, ageUnitKey: string): any {
     return (group: FormGroup): { [key: string]: any } | null => {
       const ageNum = group.controls[ageNumKey];
       const ageUnit = group.controls[ageUnitKey];
@@ -324,12 +322,12 @@ export class AgeInputComponent
   private toAge(dateStr: string): Age {
     const date = moment(dateStr);
     const now = moment();
-    if (now.subtract(this.daysTop, 'days').isBefore(date)) {
+    if (now.clone().subtract(this.daysTop, 'days').isBefore(date)) {
       return {
         age: now.diff(date, 'days'),
         unit: AgeUnit.Day,
       };
-    } else if (now.subtract(this.daysTop, 'month').isBefore(date)) {
+    } else if (now.clone().subtract(this.daysTop, 'month').isBefore(date)) {
       return {
         age: now.diff(date, 'months'),
         unit: AgeUnit.Month,

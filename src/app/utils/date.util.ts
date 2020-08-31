@@ -2,7 +2,7 @@ import { isValid, parseISO, format } from 'date-fns';
 import * as moment from 'moment';
 
 export const isValidDate = (dateStr: string | Date | moment.Moment) => {
-  if (moment.isMoment(dateStr) && moment.isDate(dateStr)) {
+  if (moment.isMoment(dateStr) || moment.isDate(dateStr)) {
     return true;
   }
   if (typeof dateStr === 'string') {
