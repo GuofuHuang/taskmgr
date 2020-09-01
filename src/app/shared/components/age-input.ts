@@ -183,12 +183,12 @@ export class AgeInputComponent
       filter((date) => birthday.valid)
     );
     const ageNum$ = ageNum.valueChanges.pipe(
-      startWith(ageNum.value),
+      startWith(`${ageNum.value}`),
       debounceTime(this.debounceTime),
       distinctUntilChanged()
     );
     const ageUnit$ = ageUnit.valueChanges.pipe(
-      startWith(ageUnit.value),
+      startWith(`${ageUnit.value}`),
       debounceTime(this.debounceTime),
       distinctUntilChanged()
     );
