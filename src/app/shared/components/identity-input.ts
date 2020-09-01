@@ -18,7 +18,7 @@ import { Identity, IdentityType } from '../../domain';
 import { isValidAddr, extractInfo } from '../../utils/identity.util';
 import { isValidDate } from '../../utils/date.util';
 import { combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-indentity-input',
@@ -28,7 +28,7 @@ import { map } from 'rxjs/operators';
         <mat-form-field>
           <mat-select
             placeholder="证件类型"
-            (change)="onIdTypeChange($event.value)"
+            (selectionChange)="onIdTypeChange($event.value)"
             [(ngModel)]="identity.identityType"
           >
             <mat-option *ngFor="let type of identityTypes" [value]="type.value">
@@ -99,13 +99,14 @@ export class IdentityInputComponent
   ngOnInit(): void {
     const idType$ = this.idType;
     const idNo$ = this.idNo;
-    const val$ = combineLatest(idType$, idNo$).pipe(
+    const val$ = combineLatest([idType$, idNo$]).pipe(
       map(([_type, _no]) => ({
         identityType: _type,
         identityNo: _no
       }))
     );
     this._sub = val$.subscribe(v => {
+      console.log('on vlaue change', v);
       this.identity = v;
       this.propagateChange(v);
     });
@@ -197,10 +198,12 @@ export class IdentityInputComponent
   }
 
   onIdTypeChange(idType: IdentityType): void {
+    console.log('type change', idType);
     this._idType.next(idType);
   }
 
   onIdNoChange(idNo: string): void {
+    console.log('asdf', idNo);
     this._idNo.next(idNo);
   }
 

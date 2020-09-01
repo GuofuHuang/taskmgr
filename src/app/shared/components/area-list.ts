@@ -127,7 +127,7 @@ export class AreaListComponent
 
   constructor() {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     const province$ = this._province.asObservable().pipe(startWith(''));
     const city$ = this._city.asObservable().pipe(startWith(''));
     const district$ = this._district.asObservable().pipe(startWith(''));
@@ -154,7 +154,7 @@ export class AreaListComponent
     );
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this._sub) {
       this._sub.unsubscribe();
     }
@@ -181,7 +181,7 @@ export class AreaListComponent
   }
 
   // 设置初始值
-  public writeValue(obj: Address) {
+  public writeValue(obj: Address): void {
     if (obj) {
       this._address = obj;
       if (this._address.province) {
@@ -201,26 +201,26 @@ export class AreaListComponent
 
   // 当表单控件值改变时，函数 fn 会被调用
   // 这也是我们把变化 emit 回表单的机制
-  public registerOnChange(fn: any) {
+  public registerOnChange(fn: any): void {
     this.propagateChange = fn;
   }
 
   // 这里没有使用，用于注册 touched 状态
-  public registerOnTouched() {}
+  public registerOnTouched(): void {}
 
-  onProvinceChange() {
+  onProvinceChange(): void {
     this._province.next(this._address.province);
   }
 
-  onCityChange() {
+  onCityChange(): void {
     this._city.next(this._address.city);
   }
 
-  onDistrictChange() {
+  onDistrictChange(): void {
     this._district.next(this._address.district);
   }
 
-  onStreetChange() {
+  onStreetChange(): void {
     this._street.next(this._address.street);
   }
 }

@@ -26,6 +26,7 @@ import {
 } from 'rxjs/operators';
 import { combineLatest } from 'rxjs';
 import { merge } from 'rxjs';
+import {resultMemoize} from '@ngrx/store';
 export enum AgeUnit {
   Year = 0,
   Month,
@@ -193,10 +194,10 @@ export class AgeInputComponent
     );
 
     const age$ = combineLatest(
-      ageNum$,
-      ageUnit$,
-      (_num: number, _unit: AgeUnit) => this.toDate({ age: _num, unit: _unit })
+      [ageNum$,
+      ageUnit$]
     ).pipe(
+      map((result: any[]) => this.toDate({age: result[0], unit: result[1]})),
       map((d) => ({ date: d, from: 'age' })),
       filter((_) => age.valid)
     );
@@ -277,7 +278,6 @@ export class AgeInputComponent
   validateDate(c: FormControl): { [key: string]: any } | null {
     const val = c.value;
     const result = isValidDate(val);
-    console.log(result);
     return result
       ? null
       : {

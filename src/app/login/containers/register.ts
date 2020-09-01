@@ -106,7 +106,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const img = `${this.avatarName}:svg-${(Math.random() * 16).toFixed()}`;
     this.form = this.fb.group({
       name: [
@@ -148,13 +148,13 @@ export class RegisterComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this._sub) {
       this._sub.unsubscribe();
     }
   }
 
-  onSubmit({ value, valid }: FormGroup, e: Event) {
+  onSubmit({ value, valid }: FormGroup, e: Event): void {
     e.preventDefault();
     if (!valid) {
       return;
@@ -173,15 +173,15 @@ export class RegisterComponent implements OnInit, OnDestroy {
     );
   }
 
-  prevTab() {
+  prevTab(): void {
     this.selectedTab = 0;
   }
 
-  nextTab() {
+  nextTab(): void {
     this.selectedTab = 1;
   }
 
-  onTabChange(index: number) {
+  onTabChange(index: number): void {
     this.selectedTab = index;
   }
 }

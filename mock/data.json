@@ -281,7 +281,7 @@
       "taskListId": "BkWpk7jGZb",
       "desc": "什么情况啊？",
       "completed": false,
-      "ownerId": "37489e0c-df34-c261-71c4-ce75357e3035",
+      "ownerId": "VgnvI94",
       "participantIds": [
         "VgnvI94"
       ],
@@ -444,6 +444,44 @@
       },
       "date": "2020-08-28T04:06:13.056Z",
       "id": "ostmnYM"
+    },
+    {
+      "taskId": "9",
+      "operator": {
+        "id": "37489e0c-df34-c261-71c4-ce75357e3035",
+        "email": "wpcfan@163.com",
+        "name": "王芃",
+        "avatar": "avatars:svg-1"
+      },
+      "operation": {
+        "type": "removeTaskExecutor"
+      },
+      "date": "2020-09-01T08:49:57.161Z",
+      "id": "nTivNri"
+    },
+    {
+      "taskId": "9",
+      "operator": {
+        "id": "37489e0c-df34-c261-71c4-ce75357e3035",
+        "email": "wpcfan@163.com",
+        "name": "王芃",
+        "avatar": "avatars:svg-1"
+      },
+      "operation": {
+        "payload": {
+          "password": "64291124",
+          "name": "guofuhuang",
+          "email": "wzcnhgf@gmail.com",
+          "avatar": "avatars:svg-2",
+          "identity": null,
+          "address": "",
+          "dateOfBirth": "",
+          "id": "VgnvI94"
+        },
+        "type": "assignTask"
+      },
+      "date": "2020-09-01T08:50:12.734Z",
+      "id": "hCvX37T"
     }
   ],
   "quotes": [
