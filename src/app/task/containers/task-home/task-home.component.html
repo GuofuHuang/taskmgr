@@ -1,3 +1,10 @@
+<mat-form-field class="example-full-width" appearance="fill">
+  <mat-label>Choose a date</mat-label>
+  <input matInput [matDatepicker]="picker">
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+<button mat-raised-button (click)="picker.open()">Open</button>
+
 <div class="task-lists-navigation">
   <div class="task-lists-navigation-menu-container" (click)="filternav.toggle()" [ngClass]="{'task-lists-navigation-opened': filternav.opened}">
     <mat-icon class="task-lists-navigation-menu-icon">visibility</mat-icon>
@@ -24,6 +31,8 @@
     </div>
   </mat-sidenav-container>
 </div>
+
+
 
 <button mat-fab (click)="handleNewTaskList($event)" type="button" class="fab-button">
   <mat-icon>add</mat-icon>

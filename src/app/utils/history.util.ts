@@ -78,9 +78,7 @@ const getDateDesc = (date: Date | string): string => {
   return typeof date === 'string' ? date : DateFns.format(date, 'M月d日 H:mm');
 };
 
-export const getTaskHistoryVMs = (
-  histories: History.TaskHistory[]
-): TaskHistoryVM[] => {
+export const getTaskHistoryVMs = (histories: History.TaskHistory[]): TaskHistoryVM[] => {
   return histories.map((history: History.TaskHistory) => {
     switch (history.operation.type) {
       case History.CREATE_TASK:
@@ -105,21 +103,21 @@ export const getTaskHistoryVMs = (
           dateDesc: getDateDesc(history.date)
         };
       case History.UPDATE_TASK_CONTENT: {
-        const content: string = (<History.UpdateTaskContentOperation>(
+        const content: string = ((
           history.operation
-        )).payload;
+        ) as History.UpdateTaskContentOperation).payload;
         return {
           ...history,
           icon: 'create',
           title: `${history.operator.name} 更新了内容`,
-          content: content,
+          content,
           dateDesc: getDateDesc(history.date)
         };
       }
       case History.UPDATE_TASK_PRIORITY: {
         let priority: string;
         switch (
-          (<History.UpdateTaskPriorityOperation>history.operation).payload
+          (history.operation as History.UpdateTaskPriorityOperation).payload
         ) {
           case 1:
             priority = '紧急';
@@ -139,14 +137,14 @@ export const getTaskHistoryVMs = (
         };
       }
       case History.UPDATE_TASK_REMARK: {
-        const content: string = (<History.UpdateTaskRemarkOperation>(
+        const content: string = ((
           history.operation
-        )).payload;
+        ) as History.UpdateTaskRemarkOperation).payload;
         return {
           ...history,
           icon: 'create',
           title: `${history.operator.name} 更新了备注`,
-          content: content,
+          content,
           dateDesc: getDateDesc(history.date)
         };
       }
@@ -159,9 +157,9 @@ export const getTaskHistoryVMs = (
         };
       }
       case History.UPDATE_TASK_DUEDATE: {
-        const dueDate: Date = (<History.UpdateTaskDueDateOperation>(
+        const dueDate: Date = ((
           history.operation
-        )).payload;
+        ) as History.UpdateTaskDueDateOperation).payload;
         return {
           ...history,
           icon: 'date_range',
@@ -189,7 +187,7 @@ export const getTaskHistoryVMs = (
         };
       }
       case History.ASSIGN_TASK: {
-        const name = (<History.AssignTaskOperation>history.operation).payload
+        const name = (history.operation as History.AssignTaskOperation).payload
           .name;
         return {
           ...history,
@@ -207,9 +205,9 @@ export const getTaskHistoryVMs = (
         };
       }
       case History.ADD_PARTICIPANT: {
-        const users: User[] = (<History.AddParticipantOperation>(
+        const users: User[] = ((
           history.operation
-        )).payload;
+        ) as History.AddParticipantOperation).payload;
         return {
           ...history,
           icon: 'person',
@@ -220,9 +218,9 @@ export const getTaskHistoryVMs = (
         };
       }
       case History.REMOVE_PARTICIPANT: {
-        const users: User[] = (<History.RemoveParticipantOperation>(
+        const users: User[] = ((
           history.operation
-        )).payload;
+        ) as History.RemoveParticipantOperation).payload;
         return {
           ...history,
           icon: 'person',

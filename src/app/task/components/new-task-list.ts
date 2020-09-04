@@ -53,7 +53,7 @@ export class NewTaskListComponent implements OnInit {
     private dialogRef: MatDialogRef<NewTaskListComponent>
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (!this.data.name) {
       this.form = this.fb.group({
         name: [
@@ -73,7 +73,7 @@ export class NewTaskListComponent implements OnInit {
     }
   }
 
-  onSubmit(ev: Event) {
+  onSubmit(ev: Event): void {
     ev.preventDefault();
     if (!this.form.valid) {
       return;

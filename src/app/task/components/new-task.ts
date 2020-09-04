@@ -47,6 +47,7 @@ import * as TaskActions from '../../actions/task.action';
             formControlName="owner"
           ></app-chips-list>
         </div>
+
         <mat-form-field class="full-width">
           <input
             matInput
@@ -171,7 +172,7 @@ export class NewTaskComponent implements OnInit, OnDestroy {
     this.taskHistories$ = this.store$.select(fromRoot.getTaskHistories);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (!this.data.task) {
       this.form = this.fb.group({
         desc: [
@@ -194,12 +195,8 @@ export class NewTaskComponent implements OnInit, OnDestroy {
           Validators.compose([Validators.required, Validators.maxLength(20)])
         ],
         priority: [this.data.task.priority],
-        dueDate: [
-          this.data.task.dueDate ? parseISO(this.data.task.dueDate) : null
-        ],
-        reminder: [
-          this.data.task.reminder ? parseISO(this.data.task.reminder) : null
-        ],
+        dueDate: [],
+        reminder: [],
         owner: [this.data.task.owner ? [this.data.task.owner] : []],
         followers: [
           this.data.task.participants ? [...this.data.task.participants] : []
@@ -213,13 +210,13 @@ export class NewTaskComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this._sub) {
       this._sub.unsubscribe();
     }
   }
 
-  loadTaskHistories() {
+  loadTaskHistories(): void {
     this.store$.dispatch(
       new TaskHistoryActions.LoadTaskHistoryAction(this.data.task.id)
     );
@@ -230,7 +227,7 @@ export class NewTaskComponent implements OnInit, OnDestroy {
     });
   }
 
-  onSubmit({ value, valid }: FormGroup, ev: Event) {
+  onSubmit({ value, valid }: FormGroup, ev: Event): void {
     ev.preventDefault();
     if (!valid) {
       return;
@@ -263,11 +260,11 @@ export class NewTaskComponent implements OnInit, OnDestroy {
     });
   }
 
-  onDelClick(confirm: boolean) {
+  onDelClick(confirm: boolean): void {
     this.notConfirm = confirm;
   }
 
-  reallyDel() {
+  reallyDel(): void {
     this.dialogRef.close({ type: 'delete', task: this.data.task });
   }
 }

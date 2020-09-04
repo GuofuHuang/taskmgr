@@ -11,10 +11,12 @@ import { CopyTaskComponent } from './components/copy-task';
 import { QuickTaskComponent } from './components/quick-task';
 import { TaskHistoryItemComponent } from './components/task-history-item';
 import { TaskFilterNavComponent } from './components/task-filter-nav';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 @NgModule({
   imports: [
     SharedModule,
+    MatDatepickerModule,
     TaskRoutingModule
   ],
   declarations: [
@@ -27,7 +29,7 @@ import { TaskFilterNavComponent } from './components/task-filter-nav';
     CopyTaskComponent,
     QuickTaskComponent,
     TaskHistoryItemComponent,
-    TaskFilterNavComponent,
+    TaskFilterNavComponent
   ],
   entryComponents: [
     NewTaskComponent,

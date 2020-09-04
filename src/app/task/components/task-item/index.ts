@@ -1,5 +1,4 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
-import {Task} from '../../../domain';
 import {itemAnim} from '../../../anim';
 import {TaskVM} from '../../../vm';
 

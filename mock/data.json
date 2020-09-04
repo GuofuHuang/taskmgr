@@ -227,10 +227,10 @@
       "completed": false,
       "ownerId": "37489e0c-df34-c261-71c4-ce75357e3035",
       "participantIds": [],
-      "dueDate": "2017-07-25T16:00:00.000Z",
+      "dueDate": null,
       "priority": 1,
       "remark": "",
-      "reminder": "2017-07-17T16:00:00.000Z",
+      "reminder": null,
       "createDate": "2017-05-24T06:11:48.513Z",
       "id": "5"
     },
@@ -482,6 +482,20 @@
       },
       "date": "2020-09-01T08:50:12.734Z",
       "id": "hCvX37T"
+    },
+    {
+      "taskId": "5",
+      "operator": {
+        "id": "37489e0c-df34-c261-71c4-ce75357e3035",
+        "email": "wpcfan@163.com",
+        "name": "王芃",
+        "avatar": "avatars:svg-1"
+      },
+      "operation": {
+        "type": "clearTaskDueDate"
+      },
+      "date": "2020-09-02T17:28:56.549Z",
+      "id": "WbDPt1a"
     }
   ],
   "quotes": [

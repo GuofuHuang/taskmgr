@@ -13,24 +13,24 @@ export function sortByOrder(a: TaskList, b: TaskList): number {
 }
 
 export const adapter: EntityAdapter<TaskList> = createEntityAdapter<TaskList>({
-  selectId: (taskList: TaskList) => <string>taskList.id,
+  selectId: (taskList: TaskList) => taskList.id as string,
   sortComparer: sortByOrder,
 });
 
 export const initialState: State = adapter.getInitialState();
 
 const delListByPrj = (state: State, action: prjActions.DeleteProjectSuccessAction) => {
-  const project = <Project>action.payload;
-  const taskListIds = <string[]>project.taskLists;
+  const project = action.payload as Project;
+  const taskListIds = project.taskLists as string[];
   return adapter.removeMany(taskListIds, state);
 };
 
 const swapOrder = (state: State, action: actions.SwapOrderSuccessAction) => {
-  const taskLists = <TaskList[]>action.payload;
+  const taskLists = action.payload as TaskList[];
   if (taskLists === null) {
     return state;
   }
-  return adapter.updateMany(taskLists.map((tl: TaskList) => ({id: <string>tl.id, changes: tl})), state);
+  return adapter.updateMany(taskLists.map((tl: TaskList) => ({id: tl.id as string, changes: tl})), state);
 };
 
 export function reducer(state: State = initialState, action: actions.Actions | prjActions.Actions): State {
@@ -38,15 +38,15 @@ export function reducer(state: State = initialState, action: actions.Actions | p
     case actions.ADD_SUCCESS:
       return {...adapter.addOne(action.payload, state)};
     case actions.DELETE_SUCCESS:
-      return {...adapter.removeOne(<string>action.payload.id, state)};
+      return {...adapter.removeOne(action.payload.id as string, state)};
     case actions.UPDATE_SUCCESS:
-      return {...adapter.updateOne({id: <string>action.payload.id, changes: action.payload}, state)};
+      return {...adapter.updateOne({id: action.payload.id as string, changes: action.payload}, state)};
     case actions.SWAP_ORDER_SUCCESS:
-      return {...swapOrder(state, <actions.SwapOrderSuccessAction>action)};
+      return {...swapOrder(state, action as actions.SwapOrderSuccessAction)};
     case actions.LOADS_SUCCESS:
       return {...adapter.addMany(action.payload, state)};
     case prjActions.DELETE_SUCCESS:
-      return {...delListByPrj(state, <prjActions.DeleteProjectSuccessAction>action)};
+      return {...delListByPrj(state, action as prjActions.DeleteProjectSuccessAction)};
     default:
       return state;
   }

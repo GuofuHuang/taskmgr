@@ -31,7 +31,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MomentDateModule } from '@angular/material-moment-adapter';
+import {MatMomentDateModule, MomentDateModule} from '@angular/material-moment-adapter';
 
 const MATERIAL_MODULES = [
   MatToolbarModule,
@@ -57,6 +57,7 @@ const MATERIAL_MODULES = [
   MatTooltipModule,
   MatSlideToggleModule,
   MomentDateModule,
+  MatMomentDateModule
 ];
 
 const MODULES = [
@@ -74,7 +75,7 @@ const DECLARATIONS = [
   ChipsListComponent,
   IdentityInputComponent,
   AreaListComponent,
-  AgeInputComponent,
+  AgeInputComponent
 ];
 
 const EXPORT_COMPONENTS = [
@@ -83,7 +84,7 @@ const EXPORT_COMPONENTS = [
   ChipsListComponent,
   IdentityInputComponent,
   AreaListComponent,
-  AgeInputComponent,
+  AgeInputComponent
 ];
 
 @NgModule({
