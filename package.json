@@ -33,6 +33,7 @@
     "@nguniversal/common": "^10.0.2",
     "angular-calendar": "^0.28.16",
     "date-fns": "^2.15.0",
+    "jwt-decode": "^2.2.0",
     "moment": "^2.27.0",
     "ngrx-store-freeze": "^0.2.4",
     "rxjs": "~6.5.5",

@@ -20,6 +20,7 @@ export class AuthEffects {
     map((action: actions.LoginAction) => action.payload),
     switchMap((val: { email: string; password: string }) =>
       this.authService.login(val.email, val.password).pipe(
+        tap(() => console.log('let us dance with you')),
         map(auth => new actions.LoginSuccessAction(auth)),
         catchError(err =>
           of(

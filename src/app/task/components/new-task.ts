@@ -47,7 +47,6 @@ import * as TaskActions from '../../actions/task.action';
             formControlName="owner"
           ></app-chips-list>
         </div>
-
         <mat-form-field class="full-width">
           <input
             matInput
@@ -195,8 +194,12 @@ export class NewTaskComponent implements OnInit, OnDestroy {
           Validators.compose([Validators.required, Validators.maxLength(20)])
         ],
         priority: [this.data.task.priority],
-        dueDate: [],
-        reminder: [],
+        dueDate: [
+          this.data.task.dueDate ? parseISO(this.data.task.dueDate) : null
+        ],
+        reminder: [
+          this.data.task.reminder ? parseISO(this.data.task.reminder) : null
+        ],
         owner: [this.data.task.owner ? [this.data.task.owner] : []],
         followers: [
           this.data.task.participants ? [...this.data.task.participants] : []

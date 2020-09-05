@@ -18,9 +18,8 @@ export class AuthGuardService implements CanActivate {
   }
 
   /**
-   * 用于判断是否可以激活该路由
    *
-   * @param route
+   * @param route 用于判断是否可以激活该路由
    */
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     return this.checkAuth();
@@ -32,6 +31,7 @@ export class AuthGuardService implements CanActivate {
         select(s => s.auth),
         map(auth => {
           const result = auth.token !== undefined && auth.token !== null;
+          console.log('result', result, auth.token);
           if (!result) {
             this.store$.dispatch(new routerActions.Go({ path: ['/login'] }));
           }

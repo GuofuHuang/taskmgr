@@ -39,12 +39,12 @@ export class AuthService {
     const uri = `${this.config.uri}/users`;
     return this.http.get(uri, { params }).pipe(
       switchMap(res => {
-        if ((<User[]>res).length > 0) {
+        if ((res as User[]).length > 0) {
           return throwError('username existed');
         }
         return this.http
           .post(uri, JSON.stringify(user), { headers: this.headers })
-          .pipe(map(r => ({ token: this.token, user: <User>r })));
+          .pipe(map(r => ({ token: this.token, user: r as User })));
       })
     );
   }
@@ -62,10 +62,11 @@ export class AuthService {
       .set('password', password);
     return this.http.get(uri, { params }).pipe(
       map(res => {
-        const users = <User[]>res;
+        const users = res as User[];
         if (users.length === 0) {
           throw new Error('Username or password incorrect');
         }
+        console.log("here is the token", this.token);
         return {
           token: this.token,
           user: users[0]

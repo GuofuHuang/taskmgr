@@ -16,6 +16,11 @@ const routes: Routes = [
     canActivate: [AuthGuardService]
   },
   {
+    path: 'purchaseorder',
+    loadChildren: () => import('../modules/purchase-order').then(m => m.PurchaseOrderModule),
+    pathMatch: 'full'
+  },
+  {
     path: 'tasklists/:id',
     loadChildren: () => import('../task').then(m => m.TaskModule),
     canActivate: [AuthGuardService]

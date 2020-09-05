@@ -9,7 +9,8 @@ import { UserService } from './user.service';
 import { MyCalService } from './my-cal.service';
 import { TaskHistoryService } from './task-history.service';
 import { TaskFilterService } from './task-filter.service';
-
+import { LocalStorageService } from './local-storage.service';
+import { JWTTokenService } from './jwt-token.service';
 export {
   AuthGuardService,
   AuthService,
@@ -21,11 +22,13 @@ export {
   TaskHistoryService,
   UserService,
   MyCalService,
+  LocalStorageService,
+  JWTTokenService
 };
 
 @NgModule()
 export class ServicesModule {
-  static forRoot() {
+  static forRoot(): any {
     return {
       ngModule: ServicesModule,
       providers: [

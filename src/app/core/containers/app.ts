@@ -59,11 +59,11 @@ export class AppComponent {
       this.projects$ = this.store$.pipe(select(fromRoot.getProjects));
   }
 
-  get dark() {
+  get dark(): boolean {
     return this._dark;
   }
 
-  switchDarkTheme(dark: boolean) {
+  switchDarkTheme(dark: boolean): void {
     this._dark = dark;
     if (dark) {
       this.oc.getContainerElement().classList.add('myapp-dark-theme');
@@ -72,11 +72,11 @@ export class AppComponent {
     }
   }
 
-  onLogout() {
+  onLogout(): void {
     this.store$.dispatch(new actions.LogoutAction());
   }
 
-  onPrjClicked(prj: Project) {
+  onPrjClicked(prj: Project): void {
     this.store$.dispatch(new prjActions.SelectProjectAction(prj));
   }
 }

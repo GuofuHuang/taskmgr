@@ -14,14 +14,9 @@ import { range } from 'rxjs';
 
 @Component({
   selector: 'app-project-list',
-  template: `    
-    <mat-form-field appearance="fill">
-      <mat-label>Choose a date</mat-label>
-      <input matInput [matDatepicker]="picker">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-
+  template: `
+    <div>hello</div>
+    <a [routerLink]="'/purchaseorder'">purchase order</a>
     <div fxLayout="row" fxLayoutWrap [@listAnim]="listAnim$ | async">
       <app-project-item
         fxFlex="0 0 360px"

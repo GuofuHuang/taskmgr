@@ -1,5 +1,4 @@
 import { User } from './user';
-
 export interface Task {
   id: string | undefined;
   taskListId: string;

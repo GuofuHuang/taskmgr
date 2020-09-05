@@ -2,6 +2,7 @@ import { TaskHistoryVM } from '../vm';
 import { User } from '../domain';
 import * as DateFns from 'date-fns';
 import * as History from '../domain/history';
+import {parseISO} from 'date-fns';
 
 const getDayName = (day: number): string => {
   const dayNames: string[] = ['一', '二', '三', '四', '五', '六', '日'];
@@ -160,11 +161,12 @@ export const getTaskHistoryVMs = (histories: History.TaskHistory[]): TaskHistory
         const dueDate: Date = ((
           history.operation
         ) as History.UpdateTaskDueDateOperation).payload;
+        console.log('due date', dueDate);
         return {
           ...history,
           icon: 'date_range',
           title: `${history.operator.name} 更新截止时间为 ${DateFns.format(
-            dueDate,
+            new Date(dueDate),
             'M月d日'
           )}`,
           dateDesc: getDateDesc(history.date)

@@ -32,7 +32,7 @@ describe('测试路由守卫服务：AuthGuardService', () => {
           { path: 'route1', component: DummyComponent },
           { path: 'route2', component: DummyComponent },
         ]),
-        StoreModule.forRoot(reducers, { metaReducers: metaReducers }),
+        StoreModule.forRoot(reducers, { metaReducers }),
       ],
       declarations: [DummyComponent, RoutingComponent],
       providers: [
